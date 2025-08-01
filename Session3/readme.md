@@ -1,4 +1,4 @@
-# Your Comprehensive Guide to Understanding Your First Neural Network
+# Session 3: Your Comprehensive Guide to Understanding Your First Neural Network
 
 Welcome to your deep dive into computer vision and neural networks\! This guide is designed to bridge the gap between theory and practice. We will walk through your Python code for classifying handwritten digits, connect it to the concepts in your PDF, and build a solid foundation so you can start coding on your own.
 
