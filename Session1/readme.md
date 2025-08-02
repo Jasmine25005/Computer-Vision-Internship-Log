@@ -6,19 +6,19 @@ Welcome to your computer vision journey! This document will serve as your compre
 
 ## **1. The Big Picture: What is Computer Vision?**
 
-Before diving into the code, let's look at the diagram from your PDF (Page 3). It shows that Computer Vision is a part of Deep Learning, which is a part of Machine Learning, all under the umbrella of Artificial Intelligence.
+Before diving into the code. The Computer Vision is a part of Deep Learning, which is a part of Machine Learning, all under the umbrella of Artificial Intelligence.
 
 * **Artificial Intelligence (AI):**
-  The broad concept of creating machines that can think or act intelligently, like humans. Alan Turing's test (Pages 6-7) is a famous thought experiment to determine if a machine is "intelligent."
+  The broad concept of creating machines that can think or act intelligently, like humans. Alan Turing's test is a famous thought experiment to determine if a machine is "intelligent."
 
 * **Machine Learning (ML):**
   A subset of AI where we don't program explicit rules. Instead, we "train" a model by showing it lots of data, and it learns the patterns itself.
 
 * **Deep Learning (DL):**
-  A specialized type of ML that uses complex, multi-layered "neural networks." It's been the driving force behind recent breakthroughs like self-driving cars (Waymo, Page 8), game-playing AI (AlphaGo, Page 9), and image generation (DALL-E, Page 15).
+  A specialized type of ML that uses complex, multi-layered "neural networks." It's been the driving force behind recent breakthroughs like self-driving cars (Waymo), game-playing AI (AlphaGo), and image generation (DALL-E).
 
 * **Computer Vision (CV):**
-  This is our focus. It's a field of AI that trains computers to "see" and understand the visual world. As your PDF shows (Page 4), it's different from Image Processing.
+  This is our focus. It's a field of AI that trains computers to "see" and understand the visual world, it's different from Image Processing.
 
 ### Image Processing vs. Computer Vision
 
