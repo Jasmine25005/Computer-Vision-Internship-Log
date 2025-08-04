@@ -77,6 +77,7 @@ Let's answer this from two perspectives:
 **For high-precision applications (like medical imaging for tumor detection), using a lossless format like PNG might be preferable to ensure no detail, however small, is lost.**
 
 ---
+---
 ## **2. The Tools of the Trade: Python Libraries for CV**
 
 Four key libraries. Each has its strengths, and they are often used together.
@@ -225,138 +226,8 @@ OpenCV uses BGR by default → convert to RGB for display.
 
 ---
 
-## **3. Working with Image Data**
-
-### **Manipulating Pixels**
-
-```python
-random_image = np.random.random([500, 500])
-plt.imshow(random_image, cmap='gray')
-
-img_rgb[10:75, 10:75] = (0, 0, 0)
-plt.imshow(img_rgb)
-```
-
 ---
-
-### **Reading Multiple Images (Building a Dataset)**
-
-#### Method 1: `os.path.join()`
-
-```python
-import os
-os.path.join('data', 'cats', 'cat.jpg')
-```
-
-#### Method 2: `glob.glob()`
-
-```python
-import glob
-glob.glob('/content/dataset/cats/*.jpg')
-image_paths = glob.glob('/content/dataset/*/*.jpg')
-```
-
-#### Method 3: `os.walk()`
-
-```python
-for root, dirs, files in os.walk('/content/dataset'):
-    print(f"Current Folder: {root}")
-    print(f"Sub-folders in it: {dirs}")
-    print(f"Files in it: {files}")
-    print("---")
-```
-
----
-
-### **Practical Dataset Loading Code**
-
-#### Example A: Using `os.listdir`
-
-```python
-images = []
-labels = []
-root_dir = '/content/dataset'
-
-for folder_name in os.listdir(root_dir):
-    folder_path = os.path.join(root_dir, folder_name)
-    if os.path.isdir(folder_path):
-        for image_file in os.listdir(folder_path):
-            if image_file.endswith('.jpg'):
-                image_path = os.path.join(folder_path, image_file)
-                image = cv2.imread(image_path)
-                images.append(image)
-                labels.append(folder_name)
-```
-
-#### Example B: Using `glob`
-
-```python
-import glob
-
-image_paths = glob.glob('/content/dataset/*/*.jpg')
-images = [cv2.imread(path) for path in image_paths]
-labels = [path.split('/')[-2] for path in image_paths]
-```
-
-**Pro Tip:**
-Use `glob + list comprehension` for clean, Pythonic code.
-
----
-
-## **4. Final Data Preparation: Encodings**
-
-### `enumerate` and `zip`
-
-```python
-animals = ['cat', 'dog', 'horse']
-for idx, name in enumerate(animals):
-    print(idx, name)
-
-label_to_index = {name: idx for idx, name in enumerate(animals)}
-print(label_to_index)
-```
-
----
-
-## **5. Your Homework Task: Putting It All Together**
-
-```python
-import cv2
-import glob
-import numpy as np
-import matplotlib.pyplot as plt
-
-image_paths = glob.glob('/content/dataset/*/*.jpg')
-class_names = sorted(list(set([path.split('/')[-2] for path in image_paths])))
-label_to_index = {name: idx for idx, name in enumerate(class_names)}
-
-images = []
-labels = []
-
-for path in image_paths:
-    image = cv2.imread(path)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    image_resized = cv2.resize(image, (128, 128))
-    image_normalized = image_resized.astype(np.float32) / 255.0
-    label_name = path.split('/')[-2]
-    label_index = label_to_index[label_name]
-    images.append(image_normalized)
-    labels.append(label_index)
-
-images = np.array(images)
-labels = np.array(labels)
-
-print(f"Shape of images array: {images.shape}")
-print(f"Shape of labels array: {labels.shape}")
-
-plt.imshow(images[4])
-plt.title(f"Label: {labels[4]}")
-plt.show()
-```
-
----
----
-## The Modern Way: Loading Images with tf.keras.utils.image_dataset_from_directory
+### **Library 5: Tensorflow and keras_The modern way for loadind images:**
 **Earlier, in this Session, you learned how to load images manually using libraries like glob and os to find file paths and then looping through them to read each image with OpenCV. While that method is fundamental to understanding the process, it's not very efficient for large datasets.** 
 
 **TensorFlow and Keras provide a powerful utility that does all the heavy lifting for you in one line of code.**
@@ -471,3 +342,140 @@ normalized_train_ds = train_dataset.map(lambda x, y: (normalization_layer(x), y)
 ```
 Key Takeaway
 The ```image_dataset_from_directory``` function is a high-level utility that bridges the gap between your organized image folders on disk and a high-performance ```tf.data.Dataset``` ready for model training. It handles labeling, resizing, batching, and splitting automatically, making it the preferred method for any TensorFlow/Keras image classification project.
+
+---
+---
+
+## **3. Working with Image Data**
+
+### **Manipulating Pixels**
+
+```python
+random_image = np.random.random([500, 500])
+plt.imshow(random_image, cmap='gray')
+
+img_rgb[10:75, 10:75] = (0, 0, 0)
+plt.imshow(img_rgb)
+```
+
+---
+
+### **Reading Multiple Images (Building a Dataset)**
+
+#### Method 1: `os.path.join()`
+
+```python
+import os
+os.path.join('data', 'cats', 'cat.jpg')
+```
+
+#### Method 2: `glob.glob()`
+
+```python
+import glob
+glob.glob('/content/dataset/cats/*.jpg')
+image_paths = glob.glob('/content/dataset/*/*.jpg')
+```
+
+#### Method 3: `os.walk()`
+
+```python
+for root, dirs, files in os.walk('/content/dataset'):
+    print(f"Current Folder: {root}")
+    print(f"Sub-folders in it: {dirs}")
+    print(f"Files in it: {files}")
+    print("---")
+```
+
+---
+---
+### **Practical Dataset Loading Code**
+
+#### Example A: Using `os.listdir`
+
+```python
+images = []
+labels = []
+root_dir = '/content/dataset'
+
+for folder_name in os.listdir(root_dir):
+    folder_path = os.path.join(root_dir, folder_name)
+    if os.path.isdir(folder_path):
+        for image_file in os.listdir(folder_path):
+            if image_file.endswith('.jpg'):
+                image_path = os.path.join(folder_path, image_file)
+                image = cv2.imread(image_path)
+                images.append(image)
+                labels.append(folder_name)
+```
+
+#### Example B: Using `glob`
+
+```python
+import glob
+
+image_paths = glob.glob('/content/dataset/*/*.jpg')
+images = [cv2.imread(path) for path in image_paths]
+labels = [path.split('/')[-2] for path in image_paths]
+```
+
+**Pro Tip:**
+Use `glob + list comprehension` for clean, Pythonic code.
+
+---
+
+## **4. Final Data Preparation: Encodings**
+
+### `enumerate` and `zip`
+
+```python
+animals = ['cat', 'dog', 'horse']
+for idx, name in enumerate(animals):
+    print(idx, name)
+
+label_to_index = {name: idx for idx, name in enumerate(animals)}
+print(label_to_index)
+```
+
+---
+
+## **5. Your Homework Task: Putting It All Together**
+
+```python
+import cv2
+import glob
+import numpy as np
+import matplotlib.pyplot as plt
+
+image_paths = glob.glob('/content/dataset/*/*.jpg')
+class_names = sorted(list(set([path.split('/')[-2] for path in image_paths])))
+label_to_index = {name: idx for idx, name in enumerate(class_names)}
+
+images = []
+labels = []
+
+for path in image_paths:
+    image = cv2.imread(path)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    image_resized = cv2.resize(image, (128, 128))
+    image_normalized = image_resized.astype(np.float32) / 255.0
+    label_name = path.split('/')[-2]
+    label_index = label_to_index[label_name]
+    images.append(image_normalized)
+    labels.append(label_index)
+
+images = np.array(images)
+labels = np.array(labels)
+
+print(f"Shape of images array: {images.shape}")
+print(f"Shape of labels array: {labels.shape}")
+
+plt.imshow(images[4])
+plt.title(f"Label: {labels[4]}")
+plt.show()
+```
+
+---
+
+### Important Notes and Best Practices:
+
