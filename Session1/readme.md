@@ -310,7 +310,7 @@ plt.show()
 ---
 ---
 ## The Modern Way: Loading Images with tf.keras.utils.image_dataset_from_directory
-In Session 1, you learned how to load images manually using libraries like glob and os to find file paths and then looping through them to read each image with OpenCV. While that method is fundamental to understanding the process, it's not very efficient for large datasets.
+Earlier, in this Session, you learned how to load images manually using libraries like glob and os to find file paths and then looping through them to read each image with OpenCV. While that method is fundamental to understanding the process, it's not very efficient for large datasets.
 
 TensorFlow and Keras provide a powerful utility that does all the heavy lifting for you in one line of code.
 
@@ -332,19 +332,19 @@ The most important requirement for this function is that your images must be org
 
 For example:
 
-/content/dataset/
-├── cats/
-│   ├── cat_1.jpg
-│   ├── cat_2.jpg
-│   └── ...
-├── dogs/
-│   ├── dog_1.jpg
-│   ├── dog_2.jpg
-│   └── ...
-└── horses/
-    ├── horse_1.jpg
-    ├── horse_2.jpg
-    └── ...
+## /content/dataset/
+## ├── cats/
+## │   ├── cat_1.jpg
+## │   ├── cat_2.jpg
+## │   └── ...
+## ├── dogs/
+## │   ├── dog_1.jpg
+## │   ├── dog_2.jpg
+## │   └── ...
+## └── horses/
+##     ├── horse_1.jpg
+##     ├── horse_2.jpg
+##     └── ...
 The function will automatically:
 
 Identify cats, dogs, and horses as the class names.
