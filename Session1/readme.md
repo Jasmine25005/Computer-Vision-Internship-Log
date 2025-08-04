@@ -29,10 +29,57 @@ Before diving into the code. The Computer Vision is a part of Deep Learning, whi
   The input is an image, and the output is information or understanding about the image (e.g., "This is a cat," "There are 3 cars in this scene," "This is a cancerous cell.").
 
 ---
+## **Knowing that CV is all about images, let's dive into exploring the journey of the image**
+**On-disk to  Image Formats: On-Disk vs. In-Memory**
+**Let's break down the journey of an image into two stages:**
 
+**Stage 1: The Image as a File on Disk**
+At this stage, the image is stored on your hard drive in a specific format like cat.jpg or dog.png. These formats are just "containers" or methods for storing pixel data.
+
+**JPG (or JPEG): Uses "lossy" compression. This means it discards some image details that the human eye doesn't easily notice to make the file size much smaller.**
+
+**PNG: Uses "lossless" compression. This means it preserves every single pixel in the image exactly as it is, without any loss of information, but the file size is larger. It also supports transparency.**
+
+**BMP: An almost raw format with no compression. Its file size is very large and it's rarely used.**
+
+At this stage, the format only matters in terms of the original image quality and storage space.
+
+**Stage 2: The Image in the Program's Memory (RAM)**
+**This is the crucial stage. When you use any Python library to read an image(we will discuss them later in this session:)), such as:**
+
+```Python
+
+img = cv2.imread('cat.jpg')
+# or
+img = Image.open('cat.png')
+# or
+train_dataset = tf.keras.utils.image_dataset_from_directory(...)
+```
+**What happens is that the library decodes the file. It opens the container (JPG or PNG) and extracts the fundamental data from it: the grid of pixels.**
+
+After this step, the image is no longer cat.jpg or dog.png. It has been converted into the universal, standard format that computers understand: a NumPy array (or a TensorFlow Tensor).
+
+This array is just a 3-dimensional grid of numbers (height, width, 3) representing the Red, Green, and Blue values for each pixel.
+
+All subsequent operations—whether it's analysis, visualization, or feeding it into a machine learning model—are performed on this numerical array, not on the original file.
+
+**So, Does the Format Matter?**
+Let's answer this from two perspectives:
+
+**1. Does it matter to the model or for analysis?**
+**No. The model never "sees" a .jpg or .png. It only sees the array of numbers. You can train a model on images that were originally JPGs and others that were PNGs, and the model won't notice any difference in "format" because it's dealing with NumPy arrays in both cases.**
+
+**2. Does it matter for data quality?**
+**Yes, to some extent. Because the JPG format discards some data, the resulting NumPy array from reading a JPG file might contain slight compression artifacts that wouldn't exist in an array from a PNG file of the same image.**
+
+**For 99% of computer vision applications (like recognizing cats and dogs), this difference is negligible and doesn't affect the model's performance. Using JPG is common due to its small file size.**
+
+**For high-precision applications (like medical imaging for tumor detection), using a lossless format like PNG might be preferable to ensure no detail, however small, is lost.**
+
+---
 ## **2. The Tools of the Trade: Python Libraries for CV**
 
-In your notebook, you use four key libraries. Each has its strengths, and they are often used together.
+Four key libraries. Each has its strengths, and they are often used together.
 
 ---
 
@@ -314,7 +361,7 @@ plt.show()
 
 **TensorFlow and Keras provide a powerful utility that does all the heavy lifting for you in one line of code.**
 
-**What is ```image_dataset_from_directory? ```**
+**What is ```image_dataset_from_directory```?**
 **It's a function that reads a directory of images, which is sorted into class-specific subdirectories, and creates a ```tf.data.Dataset``` object. This object is highly optimized for performance and is the standard way to feed data into a Keras model for training.**
 
 **Why is it better than the manual method?**
