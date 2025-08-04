@@ -310,27 +310,27 @@ plt.show()
 ---
 ---
 ## The Modern Way: Loading Images with tf.keras.utils.image_dataset_from_directory
-Earlier, in this Session, you learned how to load images manually using libraries like glob and os to find file paths and then looping through them to read each image with OpenCV. While that method is fundamental to understanding the process, it's not very efficient for large datasets.
+**Earlier, in this Session, you learned how to load images manually using libraries like glob and os to find file paths and then looping through them to read each image with OpenCV. While that method is fundamental to understanding the process, it's not very efficient for large datasets.** 
 
-TensorFlow and Keras provide a powerful utility that does all the heavy lifting for you in one line of code.
+**TensorFlow and Keras provide a powerful utility that does all the heavy lifting for you in one line of code.**
 
-What is image_dataset_from_directory?
-It's a function that reads a directory of images, which is sorted into class-specific subdirectories, and creates a tf.data.Dataset object. This object is highly optimized for performance and is the standard way to feed data into a Keras model for training.
+**What is ```image_dataset_from_directory? ```**
+**It's a function that reads a directory of images, which is sorted into class-specific subdirectories, and creates a ```tf.data.Dataset``` object. This object is highly optimized for performance and is the standard way to feed data into a Keras model for training.**
 
-Why is it better than the manual method?
+**Why is it better than the manual method?**
 
-Automation: It automatically finds the images, resizes them, creates labels from the folder names, and shuffles the data.
+**Automation: It automatically finds the images, resizes them, creates labels from the folder names, and shuffles the data.**
 
-Memory Efficiency: It doesn't load all the images into memory at once. Instead, it loads them in batches from the disk as needed, which is essential for working with huge datasets that don't fit in your RAM.
+**Memory Efficiency: It doesn't load all the images into memory at once. Instead, it loads them in batches from the disk as needed, which is essential for working with huge datasets that don't fit in your RAM.**
 
-Performance: The tf.data.Dataset object it creates has powerful methods like .cache() and .prefetch() that can dramatically speed up your model training pipeline.
+**Performance: The tf.data.Dataset object it creates has powerful methods like .cache() and .prefetch() that can dramatically speed up your model training pipeline.**
 
-Simplicity: It replaces 15-20 lines of manual code with a single function call.
+**Simplicity: It replaces 15-20 lines of manual code with a single function call.**
 
-How It Works: The Directory Structure
-The most important requirement for this function is that your images must be organized in a specific way. You need a main directory, and inside it, one subdirectory for each class.
+**How It Works: The Directory Structure**
+**The most important requirement for this function is that your images must be organized in a specific way. You need a main directory, and inside it, one subdirectory for each class.**
 
-For example:
+**For example:**
 
 ## /content/dataset/
 ## ├── cats/
@@ -356,7 +356,7 @@ Pair each image with its correct label.
 Practical Example
 Let's see how to use it to load the dataset structure shown above and prepare it for training.
 
-Python
+```python
 
 import tensorflow as tf
 import matplotlib.pyplot as plt
@@ -421,6 +421,6 @@ plt.show()
 # We can do this very efficiently using the .map() method.
 normalization_layer = tf.keras.layers.Rescaling(1./255)
 normalized_train_ds = train_dataset.map(lambda x, y: (normalization_layer(x), y))
-
+```
 Key Takeaway
-The image_dataset_from_directory function is a high-level utility that bridges the gap between your organized image folders on disk and a high-performance tf.data.Dataset ready for model training. It handles labeling, resizing, batching, and splitting automatically, making it the preferred method for any TensorFlow/Keras image classification project.
+The ```image_dataset_from_directory``` function is a high-level utility that bridges the gap between your organized image folders on disk and a high-performance ```tf.data.Dataset``` ready for model training. It handles labeling, resizing, batching, and splitting automatically, making it the preferred method for any TensorFlow/Keras image classification project.
