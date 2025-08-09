@@ -26,6 +26,10 @@ Your PDF mentions **R-CNN** (Regions with CNN features). This was one of the ear
 
 The problem? Running a CNN 2,000 times per image is incredibly slow and computationally expensive. Later versions like **Fast R-CNN** and **Faster R-CNN** made significant improvements by sharing computation, but they still maintained this multi-stage pipeline.
 
+* for a deeper dive on how selective search works, watch this video:[![Selective Search Explained](https://i.ytimg.com/vi/2WH-Se1LVIQ/hqdefault.jpg)](https://youtu.be/2WH-Se1LVIQ?feature=shared)
+
+
+
 -----
 
 ## Part 2: The YOLO Revolution - A New Paradigm
@@ -242,3 +246,4 @@ Here is the mental workflow for any object detection project:
       * Feed it new images: `my_model.predict('new_image.jpg', save=True)`.
 
 By consistently following this **Data -\> Setup -\> Train -\> Evaluate -\> Predict** cycle, you will build the intuition and experience to tackle any object detection problem.
+
