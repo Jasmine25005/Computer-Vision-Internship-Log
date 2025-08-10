@@ -48,7 +48,7 @@ The core idea is that instead of making the model learn the dimensions of an obj
 
 From Sliding Window to R-CNN
 The R-CNN family of models was a major improvement over the slow sliding window approach.
-*Being successful deep learning approaches to object detection. Understanding its workflow helps appreciate why it's a better object detector ofc till introducing YOLO.
+* Being successful deep learning approaches to object detection. Understanding its workflow helps appreciate why it's a better object detector ofc till introducing YOLO.
 
 #### R-CNN's Two-Stage Approach:
 
@@ -280,6 +280,7 @@ Here is the mental workflow for any object detection project:
       * Feed it new images: `my_model.predict('new_image.jpg', save=True)`.
 
 By consistently following this **Data -\> Setup -\> Train -\> Evaluate -\> Predict** cycle, you will build the intuition and experience to tackle any object detection problem.
+
 
 
 
