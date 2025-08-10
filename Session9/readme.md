@@ -245,7 +245,11 @@ Here is the mental workflow for any object detection project:
 
 3.  **Organize Your Data**:
 
-      * Create a project folder. Inside, create a `dataset.yaml` file. This file is the map to your data.
+      * Create a project folder. Inside, create a `dataset.yaml` file. The .yaml file tells the training script three critical pieces of information:
+ * path: The location of your project's main folder. Where is the dataset located on the computer?
+ * train & val: The location of your training images and validation images, relative to the main path. The chef needs to know where to find the ingredients.
+ * names: A list of the class names you are detecting. This is crucial. Your annotation files will label a cat as class 0. The .yaml file is what tells the program that the number 0 corresponds to the word "cat". Without this, the model would just output numbers, and you would have no idea what they mean.
+So, the .yaml file is the central configuration file, or the "map," that connects your code to your data.
 
     <!-- end list -->
 
@@ -280,6 +284,7 @@ Here is the mental workflow for any object detection project:
       * Feed it new images: `my_model.predict('new_image.jpg', save=True)`.
 
 By consistently following this **Data -\> Setup -\> Train -\> Evaluate -\> Predict** cycle, you will build the intuition and experience to tackle any object detection problem.
+
 
 
 
